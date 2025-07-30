@@ -1,7 +1,7 @@
 // Projeto 006 - Jogo do Número Secreto Completo
 
 // -> VARIAVEIS
-let numeroSecreto = parseInt(Math.random() * 10 + 1); // Gerar um número aleatório entre 1 e 10
+let numeroSecreto = gerarNumeroAleatorio(); // Gerar um número aleatório entre 1 e 10
 // let numeroSecreto = 5; // Para testes, definir um número fixo    
 let contagemTentativas = 1;
 
@@ -54,7 +54,7 @@ function limparCampoEntrada() {
 
 function reiniciarJogo() {
     exibirMensagemInicial();
-    numeroSecreto = 5; // Gerar um novo número secreto
+    numeroSecreto = gerarNumeroAleatorio(); // Gerar um novo número secreto
     contagemTentativas = 1; // Reiniciar a contagem de tentativas
     limparCampoEntrada(); // Limpar o campo de entrada
     // document.getElementById('reiniciar').disabled = true; // Desabilitar o botão de reiniciar
