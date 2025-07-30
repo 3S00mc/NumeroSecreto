@@ -1,7 +1,8 @@
 // Projeto 006 - Jogo do Número Secreto Completo
 
 // -> VARIAVEIS
-let numeroSecreto = 5;
+let numeroSecreto = parseInt(Math.random() * 10 + 1); // Gerar um número aleatório entre 1 e 10
+// let numeroSecreto = 5; // Para testes, definir um número fixo    
 let contagemTentativas = 1;
 
 // -> FUNCOES
