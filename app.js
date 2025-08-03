@@ -1,71 +1,76 @@
 // Projeto 006 - Jogo do Número Secreto Completo
 
 // -> VARIAVEIS
-let numeroSecreto = gerarNumeroAleatorio(); // Gerar um número secreto aleatório entre 1 e 10
-let contagemTentativas = 1;
+let contagemTentativas = 1; // Contador de tentativas do usuário
+let numeroMaximo = 200; // Número máximo do intervalo do jogo
+let numeroSecreto = gerarNumeroSecreto(); // Chama a função para gerar o número secreto aleatório
+console.log(numeroSecreto); // Exibir o número secreto no console para fins de depuração
 
 // -> FUNCOES
-// Exibir o texto no campo de entrada
+/* Funcao que seleciona o campo/tag no HTML e atribui o texto espcificado */
 function exibirTextoNaTela(tag, texto) {
-    let campo = document.querySelector(tag);
+    let campo = document.querySelector(tag); // Seleciona o elemento HTML com a tag especificada e atribui a variavel campo
     campo.innerHTML = texto;
 }
 
-// Gerar um número aleatório entre 1 e 10
-function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 10 + 1);
+/* Funcao de boas vindas ao jogo. Utiliza a funcao exibirTextoNaTela para gerar a mensagem */
+function exibirMensagemInicial() {
+    exibirTextoNaTela('h1', 'Jogo do Número Secreto');
+    exibirTextoNaTela('p', `Advinhe o número entre 1 e ${numeroMaximo}.`);
+}
+exibirMensagemInicial();
+
+function gerarNumeroSecreto() {
+    return numeroAleatorio = parseInt(Math.random() * numeroMaximo + 1); // Gera um número aleatório entre 1 e o número máximo definido
 }
 
-// Validar o chute e comparar com o numero secreto
+function limparCampoEntrada() {
+    document.querySelector('input').value = ''; // Declarar a funcao que limpa o campo de entrada
+    document.querySelector('input').focus(); // Focar novamente no campo de entrada
+}
+
+/* Funcao que valida se o numero digitado esta dentro do intervalo solicitado, e reliza as comparacoes entre o numero digitado e o numero aleatorio gerado */
 function verificarChute() {
-    let chute = parseInt(document.querySelector('input').value);
+    let chute = parseInt(document.querySelector('input').value); // Pega o valor do campo de entrada e converte para inteiro
+
     // Validacao se o usuario digitou um numero dentro dos parametros
-    if (chute < 1 || chute > 10 || isNaN(chute)) {
-        exibirTextoNaTela('p', 'Por favor, digite um número entre 1 e 10.');
+    if (chute < 1 || chute > numeroMaximo || isNaN(chute)) {
+        exibirTextoNaTela('p', `Por favor, digite um número entre 1 e ${numeroMaximo}.`);
         limparCampoEntrada();
     } else {
-        // Aqui você pode adicionar a lógica para verificar o chute com o número secreto
+        // Se o chute estiver dentro do intervalo, verifica se é igual ao número secreto
         if (chute == numeroSecreto) {
-            exibirTextoNaTela('h1', 'Parabéns! Você acertou!');
-            let palavraTentativas = contagemTentativas > 1 ? 'tentativas' : 'tentativa';
-            let mensagemTentativas = `Você usou ${contagemTentativas} ${palavraTentativas}.`;
-            exibirTextoNaTela('p', mensagemTentativas);
-            // document.getElementById('reiniciar').disabled = false; // Desabilitar o botão após acertar
+            exibirTextoNaTela('h1', 'Parabéns! Você acertou!'); // Exibe mensagem de sucesso
+            let palavraTentativas = contagemTentativas > 1 ? 'tentativas' : 'tentativa'; //Operador ternario para definir o plural da palavra "tentativa"
+            let mensagemTentativas = `Você usou ${contagemTentativas} ${palavraTentativas}.`; // Atribui a mensagem com o número de tentativas a variavel mensagemTentativas
+            exibirTextoNaTela('p', mensagemTentativas); // Exibe a mensagem com o número de tentativas
+
+            // document.getElementById('reiniciar').disabled = false; // Outra opcao para habilitar o botão após acertar
             document.getElementById('reiniciar').removeAttribute('disabled'); // Habilitar o botão após acertar
-            // document.getElementById('chutar').disabled = true; // Desabilitar o botão de chutar
+            // document.getElementById('chutar').disabled = true; // Outra opcao para desabilitar o botão de chutar
             document.getElementById('chutar').setAttribute('disabled', 'true');
-        } else if (chute < numeroSecreto) {
+
+        } else if (chute < numeroSecreto) { // Se o chute for menor que o número secreto, exibe mensagem de dica
             exibirTextoNaTela('h1', 'Jogo do Número Secreto');
             exibirTextoNaTela('p', 'Não foi dessa vez, tente um número MAIOR.');
-        } else {
+        } else { // Se o chute for maior que o número secreto, exibe mensagem de dica
             exibirTextoNaTela('h1', 'Jogo do Número Secreto');
             exibirTextoNaTela('p', 'Não foi dessa vez, tente um número MENOR.');
         }
+        // Incrementar a contagem de tentativas
         contagemTentativas++;
         limparCampoEntrada();
     }
 }
 
-function limparCampoEntrada() {
-    // Limpar o campo de entrada
-    document.querySelector('input').value = '';
-}
-
+/* Funcao que reinicia o jogo, limpando o campo de entrada, gerando um novo numero secreto e reiniciando a contagem de tentativas */
 function reiniciarJogo() {
     exibirMensagemInicial();
-    numeroSecreto = gerarNumeroAleatorio(); // Chama a funcao que gera um novo número secreto
-    contagemTentativas = 1; // Reiniciar a contagem de tentativas
     limparCampoEntrada(); // Limpar o campo de entrada
-    // document.getElementById('reiniciar').disabled = true; // Desabilitar o botão de reiniciar
+    numeroSecreto = gerarNumeroSecreto(); // Gerar um novo número secreto
+    console.log(numeroSecreto); // Exibir o número secreto no console para fins de depuração
+    contagemTentativas = 1; // Reiniciar a contagem de tentativas
+
     document.getElementById('reiniciar').setAttribute('disabled', 'true'); // Desabilitar o botão de reiniciar
-    // document.getElementById('chutar').disabled = false; // Habilitar o botão de chutar
     document.getElementById('chutar').removeAttribute('disabled'); // Habilitar o botão de chutar
 }
-
-function exibirMensagemInicial() {
-    exibirTextoNaTela('h1', 'Jogo do Número Secreto');
-    exibirTextoNaTela('p', 'Advinhe o número entre 1 e 10');
-}
-
-// -> EXECUCAO
-exibirMensagemInicial();

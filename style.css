@@ -83,6 +83,8 @@ body::before {
     font-size: 24px;
     font-weight: 700;
     font-family: 'Inter', sans-serif;
+    -webkit-appearance: none; /*Remove a aparencia dos botoes do input*/
+    -moz-appearance: textfield; /*Remove a aparencia dos botoes do input*/
 }
 
 .container__botoes {
